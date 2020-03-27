@@ -175,8 +175,10 @@ mqtt_client.on('connect', () => {
 });
 
 mqtt_client.on('message', (topic, message) => {
-    const joint_data = JSON.parse(message);
-    joints[1].rotation.set(0, THREE.Math.degToRad(joint_data.joints[0]), 0);
-    joints[2].rotation.set(0, 0, THREE.Math.degToRad(joint_data.joints[1]));
-    joints[3].rotation.set(0, 0, THREE.Math.degToRad(joint_data.joints[2]) - THREE.Math.degToRad(joint_data.joints[1]));
+    if (joints.length == 6) {
+        const joint_data = JSON.parse(message);
+        joints[1].rotation.set(0, THREE.Math.degToRad(joint_data.joints[0]), 0);
+        joints[2].rotation.set(0, 0, THREE.Math.degToRad(joint_data.joints[1]));
+        joints[3].rotation.set(0, 0, THREE.Math.degToRad(joint_data.joints[2]) - THREE.Math.degToRad(joint_data.joints[1]));
+    }
 });
