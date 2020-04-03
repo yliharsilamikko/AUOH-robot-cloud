@@ -113,6 +113,8 @@ load_geometries().then(() => {
     joints[1].geometry.translate(0, -0.282, 0);
     joints[2].geometry.translate(-0.312, -0.670, 0.117);
     joints[3].geometry.translate(-0.26869, -1.74413, 0.19685);
+    joints[4].geometry.translate(-1.31519, -1.96913, -0.00015);
+    joints[5].geometry.translate(-1.54869, -1.96913, -0.08715);
 
     scene.add(joints[0]);
     joints[0].rotation.set(THREE.Math.degToRad(90), 0, 0);
@@ -133,6 +135,22 @@ load_geometries().then(() => {
     offsets[2].position.set(-0.04331, 1.074413, -0.07985);
     joints[2].add(offsets[2]);
     offsets[2].add(joints[3]);
+
+    offsets.push(new THREE.Group());
+    offsets[3].position.set(1.0465, 0.225, 0.197);
+    joints[3].add(offsets[3]);
+    offsets[3].add(joints[4]);
+
+    offsets.push(new THREE.Group());
+    offsets[4].position.set(0.2335, 0, 0.087);
+    joints[4].add(offsets[4]);
+    offsets[4].add(joints[5]);
+
+    offsets.push(new THREE.Group());
+    offsets[5].position.set(0.215, 0, -0.06668);
+
+
+    //joints[1].rotation.set(0, THREE.Math.degToRad(90), 0);
 
     // J1: [0, 282,0] Y
     // J2: [312, 670, -117] Z
@@ -180,5 +198,7 @@ mqtt_client.on('message', (topic, message) => {
         joints[1].rotation.set(0, THREE.Math.degToRad(joint_data.joints[0]), 0);
         joints[2].rotation.set(0, 0, THREE.Math.degToRad(joint_data.joints[1]));
         joints[3].rotation.set(0, 0, THREE.Math.degToRad(joint_data.joints[2]) - THREE.Math.degToRad(joint_data.joints[1]));
+        joints[4].rotation.set(THREE.Math.degToRad(joint_data.joints[3]), 0, 0);
+        joints[5].rotation.set(0, 0, THREE.Math.degToRad(joint_data.joints[4]));
     }
 });
